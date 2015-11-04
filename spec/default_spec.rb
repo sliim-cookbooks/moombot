@@ -32,6 +32,14 @@ describe 'moombot' do
             recursive: true)
   end
 
+  it 'creates template[/opt/moombot/config.rb]' do
+    expect(subject).to create_template('/opt/moombot/config.rb')
+      .with(source: 'config.rb.erb',
+            owner: 'moombot',
+            group: 'moombot',
+            mode: '0640')
+  end
+
   it 'creates cookbook_file[/opt/moombot/daemon]' do
     expect(subject).to create_cookbook_file('/opt/moombot/daemon')
       .with(source: 'daemon.rb',

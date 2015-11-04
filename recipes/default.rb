@@ -28,6 +28,13 @@ directory '/opt/moombot' do
   recursive true
 end
 
+template '/opt/moombot/config.rb' do
+  source 'config.rb.erb'
+  owner 'moombot'
+  group 'moombot'
+  mode '0640'
+end
+
 cookbook_file '/opt/moombot/daemon' do
   source 'daemon.rb'
   owner 'moombot'

@@ -3,7 +3,20 @@
 
 require 'cinch'
 require 'daemons'
-# require 'socket'
+
+class MoomBotMsgPlugin
+  include Cinch::Plugin
+  timer 60, method: :get_messages
+  def get_messages
+    IO.popen("echo get | nc localhost #{moombot[:server][:port]}") do |msgs|
+      msgs.each_line do |msg|
+        Channel(moombot[:cinch][:channels][0].split(' ')[0]).send msg
+      end
+    end
+  end
+end
+
+load 'config.rb'
 
 class Messages
   attr_writer :client
@@ -30,36 +43,20 @@ class Messages
   end
 end
 
-class MoomBotMsgPlugin
-  include Cinch::Plugin
-  timer 60, method: :get_messages
-  def get_messages
-    IO.popen('echo get | nc localhost 840807') do |msgs|
-      msgs.each_line do |msg|
-        Channel("#badtoken").send msg
-      end
-    end
-  end
-end
-
-# moombot_name = Socket.gethostname
-moombot_name = 'moombot-dev'
-moombot_home = '/opt/moombot'
-daemon_opts = { dir: moombot_home }
+daemon_opts = { dir: moombot[:home] }
 
 Daemons.run_proc('moombot', daemon_opts) do
   bot = Cinch::Bot.new do
     configure do |c|
-      c.server = 'irc.hackint.eu'
-      c.port = 9999
-      c.nick = moombot_name
-      c.realname = moombot_name.capitalize
-      c.user = moombot_name
-      c.channels = ['#moombot-dev']
+      c.server = moombot[:cinch][:server]
+      c.port = moombot[:cinch][:port,]
+      c.nick = moombot[:cinch][:nick]
+      c.realname = moombot[:cinch][:nick].capitalize
+      c.user = moombot[:cinch][:nick]
+      c.channels = moombot[:cinch][:channels]
 
-      c.ssl = Cinch::Configuration::SSL.new(use: true,
-                                            verify: false)
-      c.plugins.plugins = [MoomBotMsgPlugin]
+      c.ssl = moombot[:cinch][:ssl]
+      c.plugins.plugins = moombot[:cinch][:plugins]
     end
 
     on :message, 'ping' do |m|
@@ -68,7 +65,7 @@ Daemons.run_proc('moombot', daemon_opts) do
   end
 
   bot.loggers << Cinch::Logger::FormattedLogger.new(
-    File.open("#{moombot_home}/moombot.log", 'a+'))
+    File.open("#{moombot[:home]}/moombot.log", 'a+'))
   bot.loggers.level = :debug
   bot.loggers.first.level  = :info
 
@@ -76,7 +73,7 @@ Daemons.run_proc('moombot', daemon_opts) do
 end
 
 Daemons.run_proc('moombot-server') do
-  server = TCPServer.new '127.0.0.1', 840807
+  server = TCPServer.new moombot[:server][:bind_address], moombot[:server][:port]
   M = Messages.new
   loop do
     Thread.start(server.accept) do |client|

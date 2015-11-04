@@ -1,0 +1,19 @@
+def moombot()
+{
+  name: '<%= node['moombot']['name'] %>',
+  home: '<%= node['moombot']['home'] %>',
+  server: {
+    bind_address: '<%= node['moombot']['server']['bind_address'] %>',
+    port: <%= node['moombot']['server']['port'] %>
+  },
+  cinch: {
+    nick: '<%= node['moombot']['cinch']['nick'] %>',
+    server: '<%= node['moombot']['cinch']['server'] %>',
+    port: <%= node['moombot']['cinch']['port'] %>,
+    channels: <%= node['moombot']['cinch']['channels'] %>,
+    ssl: Cinch::Configuration::SSL.new(use: <%= node['moombot']['cinch']['ssl']['use'] %>,
+                                       verify: <%= node['moombot']['cinch']['ssl']['verify'] %>),
+    plugins: [<%= node['moombot']['cinch']['plugins'].join ', ' %>]
+  }
+}
+end
