@@ -1,0 +1,11 @@
+[Unit]
+Description=MoomBot Daemon
+
+[Service]
+User=moombot
+PIDFile=/opt/moombot/moombot.pid
+ExecStart=/opt/chef/embedded/bin/ruby /opt/moombot/daemon start
+ExecStop=/opt/chef/embedded/bin/ruby /opt/moombot/daemon stop
+
+[Install]
+WantedBy=multi-user.target
