@@ -45,7 +45,7 @@ end
 
 daemon_opts = { dir: moombot[:home] }
 
-Daemons.run_proc('moombot', daemon_opts) do
+Daemons.run_proc(moombot[:name], daemon_opts) do
   bot = Cinch::Bot.new do
     configure do |c|
       c.server = moombot[:cinch][:server]
@@ -65,14 +65,14 @@ Daemons.run_proc('moombot', daemon_opts) do
   end
 
   bot.loggers << Cinch::Logger::FormattedLogger.new(
-    File.open("#{moombot[:home]}/moombot.log", 'a+'))
+    File.open("#{moombot[:home]}/#{moombot[:name]}.log", 'a+'))
   bot.loggers.level = :debug
   bot.loggers.first.level  = :info
 
   bot.start
 end
 
-Daemons.run_proc('moombot-server') do
+Daemons.run_proc("#{moombot[:name]}-server") do
   server = TCPServer.new moombot[:server][:bind_address], moombot[:server][:port]
   M = Messages.new
   loop do

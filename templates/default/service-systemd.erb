@@ -1,0 +1,11 @@
+[Unit]
+Description=<%= node['moombot']['name'].capitalize %> Daemon
+
+[Service]
+User=<%= node['moombot']['name'] %>
+PIDFile=<%= node['moombot']['home'] %>/<%= node['moombot']['name'] %>.pid
+ExecStart=/opt/chef/embedded/bin/ruby <%= node['moombot']['home'] %>/daemon start
+ExecStop=/opt/chef/embedded/bin/ruby <%= node['moombot']['home'] %>/daemon stop
+
+[Install]
+WantedBy=multi-user.target

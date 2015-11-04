@@ -12,54 +12,54 @@
   end
 end
 
-group 'moombot'
+group node['moombot']['name']
 
-user 'moombot' do
-  group 'moombot'
+user node['moombot']['name'] do
+  group node['moombot']['name']
   system true
   shell '/bin/sh'
-  home '/opt/moombot'
+  home node['moombot']['home']
 end
 
-directory '/opt/moombot' do
-  owner 'moombot'
-  group 'moombot'
+directory node['moombot']['home'] do
+  owner node['moombot']['name']
+  group node['moombot']['name']
   mode '0750'
   recursive true
 end
 
-template '/opt/moombot/config.rb' do
+template "#{node['moombot']['home']}/config.rb" do
   source 'config.rb.erb'
-  owner 'moombot'
-  group 'moombot'
+  owner node['moombot']['name']
+  group node['moombot']['name']
   mode '0640'
 end
 
-cookbook_file '/opt/moombot/daemon' do
+cookbook_file "#{node['moombot']['home']}/daemon" do
   source 'daemon.rb'
-  owner 'moombot'
-  group 'moombot'
+  owner node['moombot']['name']
+  group node['moombot']['name']
   mode '0750'
-  notifies :restart, 'service[moombot]', :delayed
+  notifies :restart, "service[#{node['moombot']['name']}]", :delayed
 end
 
 if node['init_package'] == 'systemd'
-  cookbook_file '/etc/systemd/system/moombot.service' do
-    source 'service-systemd'
-    owner 'moombot'
-    group 'moombot'
+  template "/etc/systemd/system/#{node['moombot']['name']}.service" do
+    source 'service-systemd.erb'
+    owner node['moombot']['name']
+    group node['moombot']['name']
     mode '0644'
   end
 else
-  cookbook_file '/etc/init.d/moombot' do
-    source 'service-init'
-    owner 'moombot'
-    group 'moombot'
+  template "/etc/init.d/#{node['moombot']['name']}" do
+    source 'service-init.erb'
+    owner node['moombot']['name']
+    group node['moombot']['name']
     mode '0755'
   end
 end
 
-service 'moombot' do
+service node['moombot']['name'] do
   action [:enable, :start]
   supports status: true, start: true, stop: true, restart: true
 end

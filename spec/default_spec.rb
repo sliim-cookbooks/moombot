@@ -63,10 +63,10 @@ describe 'moombot' do
       end.converge(described_recipe)
     end
 
-    it 'creates cookbook_file[/etc/systemd/system/moombot.service]' do
+    it 'creates template[/etc/systemd/system/moombot.service]' do
       service_file = '/etc/systemd/system/moombot.service'
-      expect(subject).to create_cookbook_file(service_file)
-        .with(source: 'service-systemd',
+      expect(subject).to create_template(service_file)
+        .with(source: 'service-systemd.erb',
               owner: 'moombot',
               group: 'moombot',
               mode: '0644')
@@ -80,9 +80,9 @@ describe 'moombot' do
       end.converge(described_recipe)
     end
 
-    it 'creates cookbook_file[/etc/init.d/moombot]' do
-      expect(subject).to create_cookbook_file('/etc/init.d/moombot')
-        .with(source: 'service-init',
+    it 'creates template[/etc/init.d/moombot]' do
+      expect(subject).to create_template('/etc/init.d/moombot')
+        .with(source: 'service-init.erb',
               owner: 'moombot',
               group: 'moombot',
               mode: '0755')
