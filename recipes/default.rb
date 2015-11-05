@@ -33,6 +33,7 @@ template "#{node['moombot']['home']}/config.rb" do
   owner node['moombot']['name']
   group node['moombot']['name']
   mode '0640'
+  notifies :restart, "service[#{node['moombot']['name']}]", :delayed
 end
 
 cookbook_file "#{node['moombot']['home']}/daemon" do
