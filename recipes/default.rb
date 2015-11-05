@@ -50,6 +50,8 @@ if node['init_package'] == 'systemd'
     owner node['moombot']['name']
     group node['moombot']['name']
     mode '0644'
+    notifies :run, 'execute[systemctl-daemon-reload]', :immediately
+    notifies :restart, "service[#{node['moombot']['name']}]", :delayed
   end
 else
   template "/etc/init.d/#{node['moombot']['name']}" do
@@ -57,10 +59,16 @@ else
     owner node['moombot']['name']
     group node['moombot']['name']
     mode '0755'
+    notifies :restart, "service[#{node['moombot']['name']}]", :delayed
   end
 end
 
 service node['moombot']['name'] do
   action [:enable, :start]
   supports status: true, start: true, stop: true, restart: true
+end
+
+execute 'systemctl-daemon-reload' do
+  action :nothing
+  command 'systemctl daemon-reload'
 end
