@@ -14,6 +14,7 @@ suites:
   - name: default
     run_list:
       - recipe[moombot]
+      - recipe[moombot::plugins]
     attributes:
       moombot:
         name: moombot-dev

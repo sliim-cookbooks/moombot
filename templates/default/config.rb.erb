@@ -11,9 +11,15 @@ def moombot()
     server: '<%= node['moombot']['cinch']['server'] %>',
     port: <%= node['moombot']['cinch']['port'] %>,
     channels: <%= node['moombot']['cinch']['channels'] %>,
+    primary_channel: '<%= node['moombot']['cinch']['primary_channel'] %>',
     ssl: Cinch::Configuration::SSL.new(use: <%= node['moombot']['cinch']['ssl']['use'] %>,
                                        verify: <%= node['moombot']['cinch']['ssl']['verify'] %>),
-    plugins: [<%= node['moombot']['cinch']['plugins'].join ', ' %>]
+    plugins: [<%= node['moombot']['cinch']['plugins'].map {|p| p.capitalize << 'Plugin'}.join ', ' %>]
   }
 }
 end
+
+plugins_path = File.expand_path('plugins', File.dirname(__FILE__))
+<% node['moombot']['cinch']['plugins'].each do |plugin| %>
+load File.expand_path('<%= plugin %>.rb', plugins_path)
+<% end %>
