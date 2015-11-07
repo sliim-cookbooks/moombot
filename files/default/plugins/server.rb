@@ -2,8 +2,8 @@
 
 class ServerPlugin
   include Cinch::Plugin
-  timer 60, method: :get_messages
-  def get_messages
+  timer 60
+  def timer
     IO.popen("echo get | nc localhost #{moombot[:server][:port]}") do |msgs|
       msgs.each_line do |msg|
         Channel(moombot[:cinch][:primary_channel]).send msg
