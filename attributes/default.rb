@@ -10,7 +10,7 @@ default['moombot']['name'] = 'moombot'
 default['moombot']['home'] = "/opt/#{node['moombot']['name']}"
 
 default['moombot']['server']['bind_address'] = '127.0.0.1'
-default['moombot']['server']['port'] = 840807
+default['moombot']['server']['port'] = 7331
 
 default['moombot']['cinch']['nick'] = 'moombot-dev'
 default['moombot']['cinch']['server'] = 'irc.hackint.eu'
