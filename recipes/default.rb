@@ -28,6 +28,8 @@ directory node['moombot']['home'] do
   recursive true
 end
 
+include_recipe 'moombot::plugins'
+
 template "#{node['moombot']['home']}/config.rb" do
   source 'config.rb.erb'
   owner node['moombot']['name']
@@ -43,8 +45,6 @@ cookbook_file "#{node['moombot']['home']}/daemon" do
   mode '0750'
   notifies :restart, "service[#{node['moombot']['name']}]", :delayed
 end
-
-include_recipe 'moombot::plugins'
 
 if node['init_package'] == 'systemd'
   template "/etc/systemd/system/#{node['moombot']['name']}.service" do

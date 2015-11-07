@@ -32,6 +32,10 @@ describe 'moombot' do
             recursive: true)
   end
 
+  it 'includes recipe[moombot::plugins]' do
+    expect(subject).to include_recipe('moombot::plugins')
+  end
+
   it 'creates template[/opt/moombot/config.rb]' do
     expect(subject).to create_template('/opt/moombot/config.rb')
       .with(source: 'config.rb.erb',
@@ -46,10 +50,6 @@ describe 'moombot' do
             owner: 'moombot',
             group: 'moombot',
             mode: '0750')
-  end
-
-  it 'includes recipe[moombot::plugins]' do
-    expect(subject).to include_recipe('moombot::plugins')
   end
 
   it 'enables service[moombot]' do
