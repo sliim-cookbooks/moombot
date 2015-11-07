@@ -44,6 +44,8 @@ cookbook_file "#{node['moombot']['home']}/daemon" do
   notifies :restart, "service[#{node['moombot']['name']}]", :delayed
 end
 
+include_recipe 'moombot::plugins'
+
 if node['init_package'] == 'systemd'
   template "/etc/systemd/system/#{node['moombot']['name']}.service" do
     source 'service-systemd.erb'

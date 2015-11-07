@@ -19,4 +19,4 @@ default['moombot']['cinch']['channels'] = ['#moombot-dev']
 default['moombot']['cinch']['primary_channel'] = '#moombot-dev'
 default['moombot']['cinch']['ssl']['use'] = true
 default['moombot']['cinch']['ssl']['verify'] = false
-default['moombot']['cinch']['plugins'] = ['server']
+default['moombot']['cinch']['plugins'] = ['ping', 'server']

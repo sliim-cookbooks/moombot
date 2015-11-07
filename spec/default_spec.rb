@@ -48,6 +48,10 @@ describe 'moombot' do
             mode: '0750')
   end
 
+  it 'includes recipe[moombot::plugins]' do
+    expect(subject).to include_recipe('moombot::plugins')
+  end
+
   it 'enables service[moombot]' do
     expect(subject).to enable_service('moombot')
   end

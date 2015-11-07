@@ -21,10 +21,6 @@ Daemons.run_proc(moombot[:name], daemon_opts) do
       c.ssl = moombot[:cinch][:ssl]
       c.plugins.plugins = moombot[:cinch][:plugins]
     end
-
-    on :message, 'ping' do |m|
-      m.reply "#{m.user.nick}: pong"
-    end
   end
 
   bot.loggers << Cinch::Logger::FormattedLogger.new(
