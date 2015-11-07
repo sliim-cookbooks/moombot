@@ -37,7 +37,7 @@ class Messages
   end
 end
 
-Daemons.run_proc("#{moombot[:name]}-server") do
+Daemons.run_proc("#{moombot[:name]}-server", { dir: moombot[:home] }) do
   server = TCPServer.new moombot[:server][:bind_address], moombot[:server][:port]
   M = Messages.new
   loop do

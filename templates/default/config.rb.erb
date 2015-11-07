@@ -19,8 +19,6 @@ def moombot()
 }
 end
 
-daemon_opts = { dir: '<%= node['moombot']['home'] %>' }
-
 plugins_path = File.expand_path('plugins', File.dirname(__FILE__))
 <% node['moombot']['cinch']['plugins'].each do |plugin| %>
 load File.expand_path('<%= plugin %>.rb', plugins_path)
