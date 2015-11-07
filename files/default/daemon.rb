@@ -6,8 +6,6 @@ require 'daemons'
 
 load File.expand_path('config.rb', File.dirname(__FILE__))
 
-daemon_opts = { dir: moombot[:home] }
-
 Daemons.run_proc(moombot[:name], daemon_opts) do
   bot = Cinch::Bot.new do
     configure do |c|
