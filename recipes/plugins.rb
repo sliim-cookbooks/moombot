@@ -21,3 +21,7 @@ node['moombot']['cinch']['plugins'].each do |plugin|
     notifies :restart, "service[#{node['moombot']['name']}]", :delayed
   end
 end
+
+service node['moombot']['name'] do
+  action :nothing
+end

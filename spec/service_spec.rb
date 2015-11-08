@@ -9,10 +9,6 @@ describe 'moombot::service' do
     expect(subject).to enable_service('moombot')
   end
 
-  it 'starts service[moombot]' do
-    expect(subject).to start_service('moombot')
-  end
-
   context 'with systemd' do
     let(:subject) do
       ChefSpec::SoloRunner.new do |node|
