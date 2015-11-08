@@ -20,6 +20,12 @@ node['moombot']['cinch']['plugins'].each do |plugin|
     mode '0640'
     notifies :restart, "service[#{node['moombot']['name']}]", :delayed
   end
+
+  begin
+    include_recipe("moombot::plugin_#{plugin}")
+  rescue Chef::Exceptions::RecipeNotFound
+    Chef::Log.info("No recipe for `#{plugin}` plugin.")
+  end
 end
 
 service node['moombot']['name'] do
