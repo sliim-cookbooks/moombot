@@ -2,7 +2,7 @@
 
 require_relative 'spec_helper'
 
-describe 'moombot' do
+describe 'moombot::plugins' do
   subject { ChefSpec::SoloRunner.new.converge(described_recipe) }
 
   it 'creates directory[/opt/moombot/plugins]' do

@@ -28,6 +28,7 @@ directory node['moombot']['home'] do
   recursive true
 end
 
+include_recipe 'moombot::service'
 include_recipe 'moombot::plugins'
 
 template "#{node['moombot']['home']}/config.rb" do
@@ -44,33 +45,4 @@ cookbook_file "#{node['moombot']['home']}/daemon" do
   group node['moombot']['name']
   mode '0750'
   notifies :restart, "service[#{node['moombot']['name']}]", :delayed
-end
-
-if node['init_package'] == 'systemd'
-  template "/etc/systemd/system/#{node['moombot']['name']}.service" do
-    source 'service-systemd.erb'
-    owner node['moombot']['name']
-    group node['moombot']['name']
-    mode '0644'
-    notifies :run, 'execute[systemctl-daemon-reload]', :immediately
-    notifies :restart, "service[#{node['moombot']['name']}]", :delayed
-  end
-else
-  template "/etc/init.d/#{node['moombot']['name']}" do
-    source 'service-init.erb'
-    owner node['moombot']['name']
-    group node['moombot']['name']
-    mode '0755'
-    notifies :restart, "service[#{node['moombot']['name']}]", :delayed
-  end
-end
-
-service node['moombot']['name'] do
-  action [:enable, :start]
-  supports status: true, start: true, stop: true, restart: true
-end
-
-execute 'systemctl-daemon-reload' do
-  action :nothing
-  command 'systemctl daemon-reload'
 end
