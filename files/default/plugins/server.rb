@@ -8,29 +8,29 @@ class ServerPlugin
     client.get.each do |msg|
       Channel(moombot[:cinch][:primary_channel]).send msg
     end
-    client.close
   end
 
   class Client
-    def initialize()
-      @client = TCPSocket.new '127.0.0.1', moombot[:server][:port]
-    end
-
     def add(message)
-      @client.puts "add:#{message}"
+      c = client
+      c.puts "add:#{message}"
+      c.close
     end
 
     def get
-      @client.puts 'get'
+      c = client
+      c.puts 'get'
       result = []
-      while line = @client.gets
+      while line = c.gets
         result << line
       end
+      c.close
       return result
     end
 
-    def close
-      @client.close
+    private
+    def client
+      TCPSocket.new '127.0.0.1', moombot[:server][:port]
     end
   end
 
