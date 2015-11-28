@@ -9,6 +9,8 @@
 default['moombot']['name'] = 'moombot'
 default['moombot']['home'] = "/opt/#{node['moombot']['name']}"
 
+default['moombot']['plugins'] = %w(ping server)
+
 default['moombot']['server']['bind_address'] = '127.0.0.1'
 default['moombot']['server']['port'] = 7331
 
@@ -19,4 +21,3 @@ default['moombot']['cinch']['channels'] = ['#moombot-dev']
 default['moombot']['cinch']['primary_channel'] = '#moombot-dev'
 default['moombot']['cinch']['ssl']['use'] = true
 default['moombot']['cinch']['ssl']['verify'] = false
-default['moombot']['cinch']['plugins'] = ['ping', 'server']

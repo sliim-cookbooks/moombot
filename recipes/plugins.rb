@@ -12,20 +12,21 @@ directory "#{node['moombot']['home']}/plugins" do
   mode '0750'
 end
 
-node['moombot']['cinch']['plugins'].each do |plugin|
-  cookbook_file "#{node['moombot']['home']}/plugins/#{plugin}.rb" do
-    source "plugins/#{plugin}.rb"
-    owner node['moombot']['name']
-    group node['moombot']['name']
-    mode '0640'
-    notifies :restart, "service[#{node['moombot']['name']}]", :delayed
+if node['moombot']['plugins'].is_a? ::Chef::Node::ImmutableArray
+  node['moombot']['plugins'].each do |name|
+    moombot_plugin name
   end
-
-  begin
-    include_recipe("moombot::plugin_#{plugin}")
-  rescue Chef::Exceptions::RecipeNotFound
-    Chef::Log.info("No recipe for `#{plugin}` plugin.")
+elsif node['moombot']['plugins'].is_a? ::Chef::Node::ImmutableMash
+  node['moombot']['plugins'].each do |cookbook_name, plugins|
+    plugins.each do |name|
+      moombot_plugin name do
+        cookbook cookbook_name
+      end
+    end
   end
+else
+  Chef::Log.warn('Cannot determine plugins list, '\
+                 'attribute must be an Array or a Hash')
 end
 
 service node['moombot']['name'] do
