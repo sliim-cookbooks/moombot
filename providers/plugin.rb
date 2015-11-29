@@ -23,7 +23,7 @@ action :create do
     owner node['moombot']['name']
     group node['moombot']['name']
     mode '0640'
-    notifies :restart, "service[#{node['moombot']['name']}]", :delayed
+    notifies :create, "template[#{node['moombot']['home']}/config.rb]", :delayed
   end
 
   begin
@@ -33,20 +33,24 @@ action :create do
     Chef::Log.info("No recipe for `#{new_resource.name}` plugin action :create")
   end
 
+  node.set['moombot']['plugin_list'] << new_resource.name
+
   new_resource.updated_by_last_action(true)
 end
 
 action :delete do
   cookbook_file "#{node['moombot']['home']}/plugins/#{new_resource.name}.rb" do
     action :delete
-    notifies :restart, "service[#{node['moombot']['name']}]", :delayed
+    notifies :create, "template[#{node['moombot']['home']}/config.rb]", :immediately
   end
 
   begin
-    include_recipe("moombot::plugin_delete_#{new_resource.name}")
+    include_recipe("#{new_resource.cookbook}::plugin_delete_#{new_resource.name}")
   rescue Chef::Exceptions::RecipeNotFound
     Chef::Log.info("No recipe for `#{new_resource.name}` plugin action :delete")
   end
+
+  node.set['moombot']['plugin_list'].delete(new_resource.name)
 
   new_resource.updated_by_last_action(true)
 end

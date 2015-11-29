@@ -1,14 +1,29 @@
 ---
 driver:
-  name: vagrant
+  name: docker
+  binary: docker
+  use_sudo: false
 
 provisioner:
   name: chef_zero
 
 platforms:
-  - name: debian-8.2
+  - name: debian-8
 
 suites:
-  - name: default
+  - name: moombot
     run_list:
       - recipe[moombot]
+    attributes:
+      moombot:
+        name: moombot-dev
+  - name: moombot-plugin-lwrp
+    run_list:
+      - recipe[moombot]
+      - recipe[devbot::delete_plugin2]
+    attributes:
+      moombot:
+        name: moombot-dev
+        plugins:
+          moombot: [ping]
+          devbot: [plugin1, plugin2]

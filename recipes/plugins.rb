@@ -6,6 +6,8 @@
 # Copyright 2015, Sliim
 #
 
+node.set['moombot']['plugin_list'] = []
+
 directory "#{node['moombot']['home']}/plugins" do
   owner node['moombot']['name']
   group node['moombot']['name']
