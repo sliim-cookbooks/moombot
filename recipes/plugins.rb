@@ -6,6 +6,8 @@
 # Copyright 2015, Sliim
 #
 
+include_recipe 'moombot::configure'
+
 node.set['moombot']['plugin_list'] = []
 
 directory "#{node['moombot']['home']}/plugins" do
@@ -29,8 +31,4 @@ elsif node['moombot']['plugins'].is_a? ::Chef::Node::ImmutableMash
 else
   Chef::Log.warn('Cannot determine plugins list, '\
                  'attribute must be an Array or a Hash')
-end
-
-service node['moombot']['name'] do
-  action :nothing
 end

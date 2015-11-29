@@ -6,3 +6,9 @@ license 'Apache 2.0'
 description 'Installs/Configures moombot'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '0.1.0'
+
+recipe 'moombot::default', 'Includes all recipes'
+recipe 'moombot::install', 'Installs moombot'
+recipe 'moombot::service', 'Setup moombot service'
+recipe 'moombot::configure', 'Configures moombot'
+recipe 'moombot::plugins', 'Configures moombot plugins'

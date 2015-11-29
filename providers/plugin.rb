@@ -17,6 +17,7 @@
 #
 
 action :create do
+  node.set['moombot']['plugin_list'] << new_resource.name
   cookbook_file "#{node['moombot']['home']}/plugins/#{new_resource.name}.rb" do
     source "plugins/#{new_resource.name}.rb"
     cookbook new_resource.cookbook
@@ -33,12 +34,11 @@ action :create do
     Chef::Log.info("No recipe for `#{new_resource.name}` plugin action :create")
   end
 
-  node.set['moombot']['plugin_list'] << new_resource.name
-
   new_resource.updated_by_last_action(true)
 end
 
 action :delete do
+  node.set['moombot']['plugin_list'].delete(new_resource.name)
   cookbook_file "#{node['moombot']['home']}/plugins/#{new_resource.name}.rb" do
     action :delete
     notifies :create, "template[#{node['moombot']['home']}/config.rb]", :immediately
@@ -49,8 +49,6 @@ action :delete do
   rescue Chef::Exceptions::RecipeNotFound
     Chef::Log.info("No recipe for `#{new_resource.name}` plugin action :delete")
   end
-
-  node.set['moombot']['plugin_list'].delete(new_resource.name)
 
   new_resource.updated_by_last_action(true)
 end
