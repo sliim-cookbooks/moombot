@@ -6,7 +6,7 @@ require 'daemons'
 
 load File.expand_path('config.rb', File.dirname(__FILE__))
 
-Daemons.run_proc(moombot[:name], { dir: moombot[:home] }) do
+Daemons.run_proc(moombot[:name], dir: moombot[:home]) do
   bot = Cinch::Bot.new do
     configure do |c|
       c.server = moombot[:cinch][:server]
@@ -24,7 +24,7 @@ Daemons.run_proc(moombot[:name], { dir: moombot[:home] }) do
   bot.loggers << Cinch::Logger::FormattedLogger.new(
     File.open("#{moombot[:home]}/#{moombot[:name]}.log", 'a+'))
   bot.loggers.level = :debug
-  bot.loggers.first.level  = :info
+  bot.loggers.first.level = :info
 
   bot.start
 end

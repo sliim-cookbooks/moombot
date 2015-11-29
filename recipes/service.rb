@@ -28,8 +28,10 @@ end
 service node['moombot']['name'] do
   action :enable
   supports status: true, start: true, stop: true, restart: true
-  subscribes :restart, "cookbook_file[#{node['moombot']['home']}/daemon]", :delayed
-  subscribes :restart, "template[#{node['moombot']['home']}/config.rb]", :immediately
+  subscribes :restart,
+             "cookbook_file[#{node['moombot']['home']}/daemon]", :delayed
+  subscribes :restart,
+             "template[#{node['moombot']['home']}/config.rb]", :immediately
 end
 
 execute 'systemctl-daemon-reload' do

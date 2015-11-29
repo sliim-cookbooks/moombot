@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+# ServerPlugin
 class ServerPlugin
   include Cinch::Plugin
   timer 30
@@ -10,6 +11,7 @@ class ServerPlugin
     end
   end
 
+  # ServerPlugin::Client
   class Client
     def add(message)
       c = client
@@ -17,6 +19,7 @@ class ServerPlugin
       c.close
     end
 
+    # rubocop:disable Lint/AssignmentInCondition
     def get
       c = client
       c.puts 'get'
@@ -25,22 +28,25 @@ class ServerPlugin
         result << line
       end
       c.close
-      return result
+      result
     end
+    # rubocop:enable Lint/AssignmentInCondition
 
     private
+
     def client
       TCPSocket.new '127.0.0.1', moombot[:server][:port]
     end
   end
 
+  # ServerPlugin::Message
   class Messages
     attr_writer :client
     def initialize
       @messages = []
     end
 
-    def query q
+    def query(q)
       case q[0..2].to_sym
       when :add
         add q[4..-1]
@@ -60,8 +66,9 @@ class ServerPlugin
   end
 end
 
-Daemons.run_proc("#{moombot[:name]}-server", { dir: moombot[:home] }) do
-  server = TCPServer.new moombot[:server][:bind_address], moombot[:server][:port]
+Daemons.run_proc("#{moombot[:name]}-server", dir: moombot[:home]) do
+  server = TCPServer.new moombot[:server][:bind_address],
+                         moombot[:server][:port]
   M = ServerPlugin::Messages.new
   loop do
     Thread.start(server.accept) do |client|
