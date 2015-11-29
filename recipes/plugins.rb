@@ -18,13 +18,18 @@ end
 
 if node['moombot']['plugins'].is_a? ::Chef::Node::ImmutableArray
   node['moombot']['plugins'].each do |name|
-    moombot_plugin name
+    moombot_plugin name do
+      notifies :create,
+               "template[#{node['moombot']['home']}/config.rb]", :delayed
+    end
   end
 elsif node['moombot']['plugins'].is_a? ::Chef::Node::ImmutableMash
   node['moombot']['plugins'].each do |cookbook_name, plugins|
     plugins.each do |name|
       moombot_plugin name do
         cookbook cookbook_name
+        notifies :create,
+                 "template[#{node['moombot']['home']}/config.rb]", :delayed
       end
     end
   end
