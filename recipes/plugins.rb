@@ -8,8 +8,6 @@
 
 include_recipe 'moombot::configure'
 
-node.set['moombot']['plugin_list'] = []
-
 directory "#{node['moombot']['home']}/plugins" do
   owner node['moombot']['name']
   group node['moombot']['name']
@@ -17,6 +15,7 @@ directory "#{node['moombot']['home']}/plugins" do
 end
 
 if node['moombot']['plugins'].is_a? ::Chef::Node::ImmutableArray
+  node.set['moombot']['plugin_list'] = node['moombot']['plugins']
   node['moombot']['plugins'].each do |name|
     moombot_plugin name do
       notifies :create,
@@ -24,6 +23,7 @@ if node['moombot']['plugins'].is_a? ::Chef::Node::ImmutableArray
     end
   end
 elsif node['moombot']['plugins'].is_a? ::Chef::Node::ImmutableMash
+  node.set['moombot']['plugin_list'] = node['moombot']['plugins'].map{|k,v| v}.flatten
   node['moombot']['plugins'].each do |cookbook_name, plugins|
     plugins.each do |name|
       moombot_plugin name do

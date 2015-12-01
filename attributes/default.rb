@@ -10,6 +10,7 @@ default['moombot']['name'] = 'moombot'
 default['moombot']['home'] = "/opt/#{node['moombot']['name']}"
 
 default['moombot']['plugins'] = %w(ping server)
+default['moombot']['plugin_list'] = []
 
 default['moombot']['server']['bind_address'] = '127.0.0.1'
 default['moombot']['server']['port'] = 7331
