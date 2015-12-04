@@ -31,7 +31,7 @@ service node['moombot']['name'] do
   subscribes :restart,
              "cookbook_file[#{node['moombot']['home']}/daemon]", :delayed
   subscribes :restart,
-             "template[#{node['moombot']['home']}/config.rb]", :immediately
+             "template[#{node['moombot']['home']}/config.rb]", :delayed
 end
 
 execute 'systemctl-daemon-reload' do

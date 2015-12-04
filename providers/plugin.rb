@@ -26,7 +26,7 @@ action :create do
     mode '0640'
     notifies :create,
              "template[#{node['moombot']['home']}/config.rb]", :delayed
-    notifies :restart, "service[#{node['moombot']['name']}]"
+    notifies :restart, "service[#{node['moombot']['name']}]", :delayed
   end
 
   begin
@@ -40,7 +40,7 @@ action :create do
 end
 
 action :delete do
-  node.set['moombot']['plugin_list'].delete(new_resource.name) unless node['moombot']['plugin_list'].include? new_resource.name
+  node.set['moombot']['plugin_list'].delete(new_resource.name) if node['moombot']['plugin_list'].include? new_resource.name
   cookbook_file "#{node['moombot']['home']}/plugins/#{new_resource.name}.rb" do
     action :delete
     notifies :create,
