@@ -26,6 +26,7 @@ action :create do
     mode '0640'
     notifies :create,
              "template[#{node['moombot']['home']}/config.rb]", :delayed
+    notifies :restart, "service[#{node['moombot']['name']}]"
   end
 
   begin
