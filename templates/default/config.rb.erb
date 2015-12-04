@@ -14,7 +14,7 @@ def moombot()
     primary_channel: '<%= node['moombot']['cinch']['primary_channel'] %>',
     ssl: Cinch::Configuration::SSL.new(use: <%= node['moombot']['cinch']['ssl']['use'] %>,
                                        verify: <%= node['moombot']['cinch']['ssl']['verify'] %>),
-    plugins: [<%= node['moombot']['plugin_list'].map {|p| p.capitalize << 'Plugin'}.join ', ' %>]
+    plugins: [<%= node['moombot']['plugin_list'].map { |p| p.capitalize << 'Plugin' }.join ', ' %>]
   }
 }
 end

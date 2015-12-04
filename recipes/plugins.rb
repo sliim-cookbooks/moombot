@@ -23,7 +23,8 @@ if node['moombot']['plugins'].is_a? ::Chef::Node::ImmutableArray
     end
   end
 elsif node['moombot']['plugins'].is_a? ::Chef::Node::ImmutableMash
-  node.set['moombot']['plugin_list'] = node['moombot']['plugins'].map{|k,v| v}.flatten
+  node.set['moombot']['plugin_list'] =
+    node['moombot']['plugins'].map { |_k, v| v }.flatten
   node['moombot']['plugins'].each do |cookbook_name, plugins|
     plugins.each do |name|
       moombot_plugin name do
@@ -36,4 +37,8 @@ elsif node['moombot']['plugins'].is_a? ::Chef::Node::ImmutableMash
 else
   Chef::Log.warn('Cannot determine plugins list, '\
                  'attribute must be an Array or a Hash')
+end
+
+service node['moombot']['name'] do
+  action :nothing
 end

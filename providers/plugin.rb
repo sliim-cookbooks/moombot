@@ -17,7 +17,9 @@
 #
 
 action :create do
-  node.set['moombot']['plugin_list'] << new_resource.name unless node['moombot']['plugin_list'].include? new_resource.name
+  unless node['moombot']['plugin_list'].include? new_resource.name
+    node.set['moombot']['plugin_list'] << new_resource.name
+  end
   cookbook_file "#{node['moombot']['home']}/plugins/#{new_resource.name}.rb" do
     source "plugins/#{new_resource.name}.rb"
     cookbook new_resource.cookbook
@@ -40,7 +42,10 @@ action :create do
 end
 
 action :delete do
-  node.set['moombot']['plugin_list'].delete(new_resource.name) if node['moombot']['plugin_list'].include? new_resource.name
+  if node['moombot']['plugin_list'].include? new_resource.name
+    node.set['moombot']['plugin_list'].delete(new_resource.name)
+  end
+
   cookbook_file "#{node['moombot']['home']}/plugins/#{new_resource.name}.rb" do
     action :delete
     notifies :create,
