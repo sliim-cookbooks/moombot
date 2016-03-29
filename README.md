@@ -1,10 +1,21 @@
 # moombot Cookbook
 
-Manage my bots with Chef!
+IRC Bot as a service managed with Chef!
 
 ## Requirements
 
 - Chef
+
+#### Platforms
+The following platforms and versions are tested and supported using Opscode's test-kitchen:
+- `Debian 6`
+- `Debian 7`
+- `Debian 8`
+- `Ubuntu 12.04`
+- `Ubuntu 14.04`
+- `Centos 5`
+- `Centos 6`
+- `Centos 7`
 
 ## Usage
 
