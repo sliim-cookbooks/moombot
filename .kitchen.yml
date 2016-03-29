@@ -40,3 +40,15 @@ suites:
         plugins:
           moombot: [ping]
           devbot: [plugin1, plugin2]
+  - name: moombot-plugin-config
+    run_list:
+      - recipe[moombot]
+      - recipe[devbot]
+    attributes:
+      moombot:
+        name: moombot-dev
+        plugins:
+          moombot: [ping]
+          devbot: [say]
+        plugin_say:
+          msg: Hello H4x0R!!!

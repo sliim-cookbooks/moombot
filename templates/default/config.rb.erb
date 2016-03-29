@@ -12,9 +12,13 @@ def moombot()
     port: <%= node['moombot']['cinch']['port'] %>,
     channels: <%= node['moombot']['cinch']['channels'] %>,
     primary_channel: '<%= node['moombot']['cinch']['primary_channel'] %>',
-    ssl: Cinch::Configuration::SSL.new(use: <%= node['moombot']['cinch']['ssl']['use'] %>,
-                                       verify: <%= node['moombot']['cinch']['ssl']['verify'] %>),
-    plugins: [<%= node['moombot']['plugin_list'].map { |p| p.capitalize << 'Plugin' }.join ', ' %>]
+    plugins: <%= node['moombot']['plugin_list'] %>,
+    <% if node['moombot']['cinch']['ssl'] %>
+    ssl: {
+      use: <%= node['moombot']['cinch']['ssl']['use'] %>,
+      verify: <%= node['moombot']['cinch']['ssl']['verify'] %>
+    }
+    <% end %>
   }
 }
 end
@@ -22,4 +26,9 @@ end
 plugins_path = File.expand_path('plugins', File.dirname(__FILE__))
 <% node['moombot']['plugin_list'].each do |plugin| %>
 load File.expand_path('<%= plugin %>.rb', plugins_path)
+<% if node['moombot']["plugin_#{plugin}"] %>
+def moombot_<%= plugin %>()
+<%= node['moombot']["plugin_#{plugin}"] %>
+end
+<% end %>
 <% end %>
