@@ -1,34 +1,18 @@
 def moombot()
 {
-  name: '<%= node['moombot']['name'] %>',
-  home: '<%= node['moombot']['home'] %>',
-  server: {
-    bind_address: '<%= node['moombot']['server']['bind_address'] %>',
-    port: <%= node['moombot']['server']['port'] %>
-  },
-  cinch: {
-    nick: '<%= node['moombot']['cinch']['nick'] %>',
-    server: '<%= node['moombot']['cinch']['server'] %>',
-    port: <%= node['moombot']['cinch']['port'] %>,
-    channels: <%= node['moombot']['cinch']['channels'] %>,
-    primary_channel: '<%= node['moombot']['cinch']['primary_channel'] %>',
-    plugins: <%= node['moombot']['plugin_list'] %>,
-    <% if node['moombot']['cinch']['ssl'] %>
-    ssl: {
-      use: <%= node['moombot']['cinch']['ssl']['use'] %>,
-      verify: <%= node['moombot']['cinch']['ssl']['verify'] %>
-    }
-    <% end %>
-  }
+  'name' => '<%= node['moombot']['name'] %>',
+  'home' => '<%= node['moombot']['home'] %>',
+  'cinch' => <%= node['moombot']['cinch'] %>,
+  'plugins' => <%= node['moombot']['plugin_list'] %>
 }
 end
 
 plugins_path = File.expand_path('plugins', File.dirname(__FILE__))
 <% node['moombot']['plugin_list'].each do |plugin| %>
-load File.expand_path('<%= plugin %>.rb', plugins_path)
 <% if node['moombot']["plugin_#{plugin}"] %>
 def moombot_<%= plugin %>()
 <%= node['moombot']["plugin_#{plugin}"] %>
 end
 <% end %>
+load File.expand_path('<%= plugin %>.rb', plugins_path)
 <% end %>

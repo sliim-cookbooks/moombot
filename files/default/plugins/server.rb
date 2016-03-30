@@ -7,7 +7,7 @@ class ServerPlugin
   def timer
     client = Client.new
     client.get.each do |msg|
-      Channel(moombot[:cinch][:primary_channel]).send msg
+      Channel(moombot['cinch']['primary_channel']).send msg
     end
   end
 
@@ -35,7 +35,7 @@ class ServerPlugin
     private
 
     def client
-      TCPSocket.new '127.0.0.1', moombot[:server][:port]
+      TCPSocket.new '127.0.0.1', moombot_server['port']
     end
   end
 
@@ -66,9 +66,9 @@ class ServerPlugin
   end
 end
 
-Daemons.run_proc("#{moombot[:name]}-server", dir: moombot[:home]) do
-  server = TCPServer.new moombot[:server][:bind_address],
-                         moombot[:server][:port]
+Daemons.run_proc("#{moombot['name']}-server", dir: moombot['home']) do
+  server = TCPServer.new moombot_server['bind_address'],
+                         moombot_server['port']
   M = ServerPlugin::Messages.new
   loop do
     Thread.start(server.accept) do |client|
