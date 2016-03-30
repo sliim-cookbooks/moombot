@@ -17,6 +17,9 @@ default['moombot']['cinch']['primary_channel'] = '#moombot-dev'
 default['moombot']['cinch']['ssl']['use'] = true
 default['moombot']['cinch']['ssl']['verify'] = false
 
+default['moombot']['loggers']['level'] = 'info'
+default['moombot']['loggers']['first_level'] = 'info'
+
 default['moombot']['plugins'] = %w(ping server)
 
 default['moombot']['plugin_server']['bind_address'] = '127.0.0.1'

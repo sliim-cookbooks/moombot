@@ -24,7 +24,7 @@ Daemons.run_proc(moombot['name'], dir: moombot['home']) do
 
   bot.loggers << Cinch::Logger::FormattedLogger.new(
     File.open("#{moombot['home']}/#{moombot['name']}.log", 'a+'))
-  bot.loggers.level = :debug
-  bot.loggers.first.level = :info
+  bot.loggers.level = moombot['loggers']['level'].to_sym
+  bot.loggers.first.level = moombot['loggers']['first_level'].to_sym
   bot.start
 end

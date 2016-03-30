@@ -6,6 +6,11 @@ driver:
 
 provisioner:
   name: chef_zero
+  attributes:
+    moombot:
+      loggers:
+        level: debug
+        first_level: debug
 
 platforms:
   - name: debian-6

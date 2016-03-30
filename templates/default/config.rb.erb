@@ -3,7 +3,8 @@ def moombot()
   'name' => '<%= node['moombot']['name'] %>',
   'home' => '<%= node['moombot']['home'] %>',
   'cinch' => <%= node['moombot']['cinch'] %>,
-  'plugins' => <%= node['moombot']['plugin_list'] %>
+  'plugins' => <%= node['moombot']['plugin_list'] %>,
+  'loggers' => <%= node['moombot']['loggers'] %>
 }
 end
 
