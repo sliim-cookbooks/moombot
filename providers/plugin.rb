@@ -16,6 +16,8 @@
 # limitations under the License.
 #
 
+use_inline_resources
+
 action :create do
   unless node['moombot']['plugin_list'].include? new_resource.name
     node.set['moombot']['plugin_list'] << new_resource.name
