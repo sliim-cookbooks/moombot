@@ -13,7 +13,9 @@ Daemons.run_proc(moombot['name'], dir: moombot['home']) do
       c.realname = moombot['cinch']['nick'].capitalize
       c.user = moombot['cinch']['nick']
       c.channels = moombot['cinch']['channels']
-      c.plugins.plugins = moombot['plugins'].map { |p| Object.const_get(p.capitalize << 'Plugin') }
+      c.plugins.plugins = moombot['plugins'].map do |p|
+        Object.const_get(p.capitalize << 'Plugin')
+      end
       if moombot['cinch']['ssl']
         c.ssl = Cinch::Configuration::SSL.new(
           'use' => moombot['cinch']['ssl']['use'],
