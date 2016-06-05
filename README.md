@@ -1,6 +1,6 @@
 # moombot Cookbook
 
-IRC Bot as a service managed with Chef!
+IRC Bot as a service managed with Chef! | [![Cookbook Version](https://img.shields.io/cookbook/v/moombot.svg)](https://community.opscode.com/cookbooks/moombot) [![Build Status](https://travis-ci.org/sliim-cookbooks/moombot.svg?branch=master)](https://travis-ci.org/sliim-cookbooks/moombot) 
 
 ## Requirements
 
