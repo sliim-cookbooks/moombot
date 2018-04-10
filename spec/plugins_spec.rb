@@ -15,7 +15,7 @@ describe 'moombot::plugins' do
   context 'plugins attribute is kind of Array' do
     let(:subject) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['moombot']['plugins'] = %w(plugin1 plugin2)
+        node.override['moombot']['plugins'] = %w(plugin1 plugin2)
       end.converge described_recipe
     end
 
@@ -29,8 +29,8 @@ describe 'moombot::plugins' do
   context 'plugins attribute is kind of Hash' do
     let(:subject) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['moombot']['plugins'] = { moombot: %w(plugin1 plugin2),
-                                           devbot: %w(plugin3 plugin4) }
+        node.override['moombot']['plugins'] = { moombot: %w(plugin1 plugin2),
+                                                devbot: %w(plugin3 plugin4) }
       end.converge described_recipe
     end
 

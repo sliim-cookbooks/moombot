@@ -16,11 +16,13 @@
 # limitations under the License.
 #
 
-use_inline_resources
+def whyrun_supported?
+  true
+end
 
 action :create do
   unless node['moombot']['plugin_list'].include? new_resource.name
-    node.set['moombot']['plugin_list'] << new_resource.name
+    node.override['moombot']['plugin_list'] << new_resource.name
   end
   cookbook_file "#{node['moombot']['home']}/plugins/#{new_resource.name}.rb" do
     source "plugins/#{new_resource.name}.rb"
@@ -39,13 +41,11 @@ action :create do
   rescue Chef::Exceptions::RecipeNotFound
     Chef::Log.info("No recipe for `#{new_resource.name}` plugin action :create")
   end
-
-  new_resource.updated_by_last_action(true)
 end
 
 action :delete do
   if node['moombot']['plugin_list'].include? new_resource.name
-    node.set['moombot']['plugin_list'].delete(new_resource.name)
+    node.override['moombot']['plugin_list'].delete(new_resource.name)
   end
 
   cookbook_file "#{node['moombot']['home']}/plugins/#{new_resource.name}.rb" do
@@ -60,6 +60,4 @@ action :delete do
   rescue Chef::Exceptions::RecipeNotFound
     Chef::Log.info("No recipe for `#{new_resource.name}` plugin action :delete")
   end
-
-  new_resource.updated_by_last_action(true)
 end

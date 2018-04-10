@@ -18,12 +18,7 @@
 
 actions :create, :delete
 default_action :create
+resource_name :moombot_plugin
 
 attribute :name, kind_of: String, name_attribute: true
 attribute :cookbook, kind_of: String, default: 'moombot'
-
-def initialize(*args)
-  super
-  @action = :create
-  @resource_name = :moombot_plugin
-end
