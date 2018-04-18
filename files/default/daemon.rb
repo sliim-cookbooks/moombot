@@ -17,9 +17,7 @@ Daemons.run_proc(moombot['name'], dir: moombot['home']) do
         Object.const_get(p.capitalize << 'Plugin')
       end
       if moombot['cinch']['ssl']
-        c.ssl = Cinch::Configuration::SSL.new(
-          'use' => moombot['cinch']['ssl']['use'],
-          'verify' => moombot['cinch']['ssl']['verify'])
+        c.ssl = Cinch::Configuration::SSL.new(moombot['cinch']['ssl'])
       end
     end
   end
