@@ -6,8 +6,6 @@
 # Copyright 2015, Sliim
 #
 
-include_recipe 'moombot::configure'
-
 directory "#{node['moombot']['home']}/plugins" do
   owner node['moombot']['name']
   group node['moombot']['name']
@@ -17,10 +15,7 @@ end
 if node['moombot']['plugins'].is_a? ::Chef::Node::ImmutableArray
   node.override['moombot']['plugin_list'] = node['moombot']['plugins']
   node['moombot']['plugins'].each do |name|
-    moombot_plugin name do
-      notifies :create,
-               "template[#{node['moombot']['home']}/config.rb]", :delayed
-    end
+    moombot_plugin name
   end
 elsif node['moombot']['plugins'].is_a? ::Chef::Node::ImmutableMash
   node.override['moombot']['plugin_list'] =
@@ -29,8 +24,6 @@ elsif node['moombot']['plugins'].is_a? ::Chef::Node::ImmutableMash
     plugins.each do |name|
       moombot_plugin name do
         cookbook cookbook_name
-        notifies :create,
-                 "template[#{node['moombot']['home']}/config.rb]", :delayed
       end
     end
   end

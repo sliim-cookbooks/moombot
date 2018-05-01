@@ -30,8 +30,6 @@ action :create do
     owner node['moombot']['name']
     group node['moombot']['name']
     mode '0640'
-    notifies :create,
-             "template[#{node['moombot']['home']}/config.rb]", :delayed
     notifies :restart, "service[#{node['moombot']['name']}]", :delayed
   end
 
@@ -50,8 +48,6 @@ action :delete do
 
   cookbook_file "#{node['moombot']['home']}/plugins/#{new_resource.name}.rb" do
     action :delete
-    notifies :create,
-             "template[#{node['moombot']['home']}/config.rb]", :immediately
   end
 
   begin
