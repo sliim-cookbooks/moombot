@@ -6,7 +6,7 @@ license 'Apache-2.0'
 description 'Manage your IRC Bots with Chef & Cinch'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 chef_version '>= 12.5' if respond_to?(:chef_version)
-version '1.0.0'
+version '1.1.0'
 
 recipe 'moombot::default', 'Includes all recipes'
 recipe 'moombot::install', 'Installs moombot'
