@@ -22,7 +22,7 @@
 
 USER=<%= node['moombot']['name'] %>
 BASE=<%= node['moombot']['home'] %>
-RUBY=/opt/chef/embedded/bin/ruby
+RUBY=ruby
 
 start() {
   su -l $USER -c "$RUBY $BASE/daemon start"

@@ -7,9 +7,7 @@
 #
 
 %w(cinch daemons).each do |pkg|
-  gem_package pkg do
-    gem_binary '/opt/chef/embedded/bin/gem'
-  end
+  gem_package pkg
 end
 
 group node['moombot']['name']

@@ -6,9 +6,8 @@ describe 'moombot::install' do
   subject { ChefSpec::SoloRunner.new.converge(described_recipe) }
 
   %w(cinch daemons).each do |pkg|
-    it "installs package[#{pkg}]" do
+    it "installs gem_package[#{pkg}]" do
       expect(subject).to install_gem_package(pkg)
-        .with(gem_binary: '/opt/chef/embedded/bin/gem')
     end
   end
 
