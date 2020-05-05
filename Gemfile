@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'chef', '~> 12'
+gem 'chef'
 gem 'berkshelf'
 gem 'rake'
 
@@ -17,7 +17,7 @@ group :kitchen do
   gem 'test-kitchen'
   gem 'kitchen-vagrant'
   gem 'kitchen-openstack'
-  gem 'kitchen-docker', '=2.1.0'
+  gem 'kitchen-docker'
 end
 
 group :development do
