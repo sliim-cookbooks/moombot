@@ -1,10 +1,6 @@
-# -*- coding: utf-8 -*-
-#
-# Cookbook Name:: moombot
+# Cookbook:: moombot
 # Recipe:: default
-#
-# Copyright 2015, Sliim
-#
+# Copyright:: 2015-2020 Sliim
 
 include_recipe 'moombot::install'
 include_recipe 'moombot::plugins'

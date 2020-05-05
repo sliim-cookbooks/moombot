@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+# Cookbook:: moombot
+# File:: plugins/ping.rb
+# Copyright:: 2015-2020 Sliim
 
 # PingPlugin
 class PingPlugin

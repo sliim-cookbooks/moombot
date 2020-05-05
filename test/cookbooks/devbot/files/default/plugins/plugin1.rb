@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 class Plugin1Plugin
   include Cinch::Plugin
   match 'hello', use_prefix: false, use_suffix: false

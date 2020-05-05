@@ -1,10 +1,6 @@
-# -*- coding: utf-8 -*-
-#
-# Cookbook Name:: moombot
+# Cookbook:: moombot
 # Recipe:: service
-#
-# Copyright 2015, Sliim
-#
+# Copyright:: 2015-2020 Sliim
 
 if node['init_package'] == 'systemd'
   template "/etc/systemd/system/#{node['moombot']['name']}.service" do

@@ -1,10 +1,6 @@
-# -*- coding: utf-8 -*-
-#
-# Cookbook Name:: moombot
+# Cookbook:: moombot
 # Recipe:: install
-#
-# Copyright 2015, Sliim
-#
+# Copyright:: 2015-2020 Sliim
 
 %w(cinch daemons).each do |pkg|
   gem_package pkg

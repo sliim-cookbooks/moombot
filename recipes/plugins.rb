@@ -1,10 +1,6 @@
-# -*- coding: utf-8 -*-
-#
-# Cookbook Name:: moombot
+# Cookbook:: moombot
 # Recipe:: plugins
-#
-# Copyright 2015, Sliim
-#
+# Copyright:: 2015-2020 Sliim
 
 directory "#{node['moombot']['home']}/plugins" do
   owner node['moombot']['name']

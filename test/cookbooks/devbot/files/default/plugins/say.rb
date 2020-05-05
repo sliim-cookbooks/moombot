@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 class SayPlugin
   include Cinch::Plugin
   timer 2

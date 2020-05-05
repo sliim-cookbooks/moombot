@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
-# -*- coding: utf-8 -*-
+# Cookbook:: moombot
+# File:: daemon.rb
+# Copyright:: 2015-2020 Sliim
+
 require 'cinch'
 require 'daemons'
 load File.expand_path('config.rb', File.dirname(__FILE__))

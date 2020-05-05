@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+# Cookbook:: moombot
+# File:: plugins/server.rb
+# Copyright:: 2015-2020 Sliim
 
 # ServerPlugin
 class ServerPlugin

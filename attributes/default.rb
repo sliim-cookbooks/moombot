@@ -1,10 +1,6 @@
-# -*- coding: utf-8 -*-
-#
-# Cookbook Name:: moombot
+# Cookbook:: moombot
 # Attributes:: default
-#
-# Copyright 2015, Sliim
-#
+# Copyright:: 2015-2020 Sliim
 
 default['moombot']['name'] = 'moombot'
 default['moombot']['home'] = "/opt/#{node['moombot']['name']}"
