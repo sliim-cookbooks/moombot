@@ -15,7 +15,3 @@ AllCops:
     - cookbooks/**/*
     - vendor/**/*
     - test/dockerfiles/*
-
-Style/MultilineMethodCallBraceLayout:
-  Exclude:
-    - ./**/*

@@ -8,7 +8,11 @@ describe 'moombot::service' do
   end
 
   context 'with systemd' do
-    subject { ChefSpec::SoloRunner.new.converge(described_recipe) }
+    let(:subject) do
+      ChefSpec::SoloRunner.new do |node|
+        node.automatic['init_package'] = 'systemd'
+      end.converge(described_recipe)
+    end
 
     it 'creates template[/etc/systemd/system/moombot.service]' do
       service_file = '/etc/systemd/system/moombot.service'
@@ -21,7 +25,11 @@ describe 'moombot::service' do
   end
 
   context 'without systemd' do
-    subject { ChefSpec::SoloRunner.new(version: '7.11').converge(described_recipe) }
+    let(:subject) do
+      ChefSpec::SoloRunner.new do |node|
+        node.automatic['init_package'] = 'init'
+      end.converge(described_recipe)
+    end
 
     it 'creates template[/etc/init.d/moombot]' do
       expect(subject).to create_template('/etc/init.d/moombot')
