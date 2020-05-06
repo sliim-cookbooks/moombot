@@ -6,6 +6,7 @@ driver:
 
 provisioner:
   name: chef_zero
+  chef_license: accept
   attributes:
     moombot:
       loggers:
