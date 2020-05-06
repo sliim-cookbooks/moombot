@@ -62,6 +62,12 @@ template "#{node['moombot']['home']}/config.rb" do
   owner node['moombot']['name']
   group node['moombot']['name']
   mode '0640'
+  variables name: node['moombot']['name'],
+            home: node['moombot']['home'],
+            cinch: node['moombot']['cinch'],
+            plugins: lazy { node['moombot']['plugin_list'] },
+            loggers: node['moombot']['loggers']
+  notifies :restart, "service[#{node['moombot']['name']}]", :delayed
 end
 
 if node['init_package'] == 'systemd'
