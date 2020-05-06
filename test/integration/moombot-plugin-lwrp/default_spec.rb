@@ -1,19 +1,15 @@
-# -*- coding: utf-8 -*-
-
-require 'spec_helper'
-
 describe file '/opt/moombot-dev/plugins/ping.rb' do
   it { should be_file }
-  it { should be_mode 640 }
-  it { should be_owned_by 'moombot-dev' }
-  it { should be_grouped_into 'moombot-dev' }
+  it { should be_mode 0640 }
+  its(:owner) { should eq 'moombot-dev' }
+  its(:group) { should eq 'moombot-dev' }
 end
 
 describe file '/opt/moombot-dev/plugins/plugin1.rb' do
   it { should be_file }
-  it { should be_mode 640 }
-  it { should be_owned_by 'moombot-dev' }
-  it { should be_grouped_into 'moombot-dev' }
+  it { should be_mode 0640 }
+  its(:owner) { should eq 'moombot-dev' }
+  its(:group) { should eq 'moombot-dev' }
 end
 
 describe file '/opt/moombot-dev/plugins/server.rb' do

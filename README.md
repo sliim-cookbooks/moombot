@@ -4,18 +4,14 @@ IRC Bot as a service managed with Chef! | [![Cookbook Version](https://img.shiel
 
 ## Requirements
 
-- Chef
-
 #### Platforms
 The following platforms and versions are tested and supported using Opscode's test-kitchen:
-- `Debian 6`
-- `Debian 7`
 - `Debian 8`
-- `Ubuntu 12.04`
+- `Debian 9`
+- `Debian 10`
 - `Ubuntu 14.04`
-- `Centos 5`
-- `Centos 6`
-- `Centos 7`
+- `Ubuntu 16.04`
+- `Ubuntu 18.04`
 
 ## Usage
 

@@ -15,8 +15,7 @@ end
 
 group :kitchen do
   gem 'test-kitchen'
-  gem 'kitchen-vagrant'
-  gem 'kitchen-openstack'
+  gem 'kitchen-inspec'
   gem 'kitchen-docker'
 end
 
