@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the moombot cookbook.
 
+## 2.0.0
+- Removed recipes, keep only the default recipe
+- Install ruby instead of using embedded ruby in Chef
+- Install gems system-wide
+- Updated moombot_plugin resource
+- Improved configuration template
+
 ## 1.1.0
 - CI Improvements
 - Chef13 compatibility

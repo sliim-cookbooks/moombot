@@ -4,7 +4,7 @@ maintainer_email 'sliim@mailoo.org'
 license 'Apache-2.0'
 description 'Manage your IRC Bots with Chef & Cinch'
 chef_version '>= 12.5'
-version '1.1.0'
+version '2.0.0'
 
 supports 'ubuntu'
 supports 'debian'
