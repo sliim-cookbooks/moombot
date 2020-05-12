@@ -2,6 +2,9 @@
 
 This file is used to list changes made in each version of the moombot cookbook.
 
+## 2.0.1
+- Use absolute path in systemd service
+
 ## 2.0.0
 - Removed recipes, keep only the default recipe
 - Install ruby instead of using embedded ruby in Chef
