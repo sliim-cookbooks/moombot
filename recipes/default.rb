@@ -5,7 +5,9 @@
 package 'ruby'
 
 %w(cinch daemons).each do |pkg|
-  gem_package pkg
+  gem_package pkg do
+    gem_binary node['languages']['ruby']['gem_bin']
+  end
 end
 
 group node['moombot']['name']
