@@ -9,9 +9,9 @@ The following platforms and versions are tested and supported using Opscode's te
 - `Debian 8`
 - `Debian 9`
 - `Debian 10`
-- `Ubuntu 14.04`
 - `Ubuntu 16.04`
 - `Ubuntu 18.04`
+- `Ubuntu 20.04`
 
 ## Usage
 
