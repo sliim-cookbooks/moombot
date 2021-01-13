@@ -8,9 +8,6 @@ Tests can be run with Rake:
 #### Run Checkstyle & Specs
 `bundle exec rake`
 
-#### Foodcritic
-`bundle exec rake test:foodcritic`
-
 #### Cookstyle
 `bundle exec rake test:cookstyle`
 

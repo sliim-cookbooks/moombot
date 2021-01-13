@@ -6,7 +6,6 @@ gem 'rake'
 
 group :lint do
   gem 'cookstyle'
-  gem 'foodcritic'
 end
 
 group :unit do
@@ -21,7 +20,6 @@ end
 
 group :development do
   gem 'guard'
-  gem 'guard-foodcritic'
   gem 'guard-rubocop'
   gem 'guard-rspec'
 end
