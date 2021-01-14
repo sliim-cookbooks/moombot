@@ -3,10 +3,6 @@ require_relative 'spec_helper'
 describe 'moombot' do
   subject { ChefSpec::SoloRunner.new.converge(described_recipe) }
 
-  it 'installs package[ruby]' do
-    expect(subject).to install_package('ruby')
-  end
-
   %w(cinch daemons).each do |pkg|
     it "installs gem_package[#{pkg}]" do
       expect(subject).to install_gem_package(pkg)
@@ -33,9 +29,9 @@ describe 'moombot' do
             recursive: true)
   end
 
-  it 'creates cookbook_file[/opt/moombot/daemon]' do
-    expect(subject).to create_cookbook_file('/opt/moombot/daemon')
-      .with(source: 'daemon.rb',
+  it 'creates template[/opt/moombot/daemon]' do
+    expect(subject).to create_template('/opt/moombot/daemon')
+      .with(source: 'daemon.erb',
             owner: 'moombot',
             group: 'moombot',
             mode: '0750')

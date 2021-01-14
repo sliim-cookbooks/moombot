@@ -2,8 +2,6 @@
 # Recipe:: default
 # Copyright:: 2015-2020 Sliim
 
-package 'ruby'
-
 %w(cinch daemons).each do |pkg|
   gem_package pkg do
     gem_binary node['languages']['ruby']['gem_bin']
@@ -26,8 +24,8 @@ directory node['moombot']['home'] do
   recursive true
 end
 
-cookbook_file "#{node['moombot']['home']}/daemon" do
-  source 'daemon.rb'
+template "#{node['moombot']['home']}/daemon" do
+  source 'daemon.erb'
   owner node['moombot']['name']
   group node['moombot']['name']
   mode '0750'
@@ -95,7 +93,7 @@ service node['moombot']['name'] do
   action :enable
   supports status: true, start: true, stop: true, restart: true
   subscribes :restart,
-             "cookbook_file[#{node['moombot']['home']}/daemon]", :delayed
+             "template[#{node['moombot']['home']}/daemon]", :delayed
   subscribes :restart,
              "template[#{node['moombot']['home']}/config.rb]", :delayed
 end
