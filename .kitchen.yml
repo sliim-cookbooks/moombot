@@ -27,12 +27,14 @@ platforms:
 suites:
   - name: moombot
     run_list:
+      - recipe[apt]
       - recipe[moombot]
     attributes:
       moombot:
         name: moombot-dev
   - name: moombot-plugin-lwrp
     run_list:
+      - recipe[apt]
       - recipe[moombot]
       - recipe[devbot::delete_plugin2]
     attributes:
@@ -43,6 +45,7 @@ suites:
           devbot: [plugin1, plugin2]
   - name: moombot-plugin-config
     run_list:
+      - recipe[apt]
       - recipe[moombot]
       - recipe[devbot]
     attributes:
