@@ -1,6 +1,6 @@
 # Cookbook:: moombot
 # Recipe:: default
-# Copyright:: 2015-2020 Sliim
+# Copyright:: 2015-2021 Sliim
 
 %w(cinch daemons).each do |pkg|
   gem_package pkg do

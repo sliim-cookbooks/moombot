@@ -28,14 +28,16 @@ suites:
   - name: moombot
     run_list:
       - recipe[apt]
-      - recipe[moombot]
+      - recipe[moombot::ruby]
+      - recipe[moombot::default]
     attributes:
       moombot:
         name: moombot-dev
   - name: moombot-plugin-lwrp
     run_list:
       - recipe[apt]
-      - recipe[moombot]
+      - recipe[moombot::ruby]
+      - recipe[moombot::default]
       - recipe[devbot::delete_plugin2]
     attributes:
       moombot:
@@ -46,7 +48,8 @@ suites:
   - name: moombot-plugin-config
     run_list:
       - recipe[apt]
-      - recipe[moombot]
+      - recipe[moombot::ruby]
+      - recipe[moombot::default]
       - recipe[devbot]
     attributes:
       moombot:
