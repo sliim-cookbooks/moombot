@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the moombot cookbook.
 
+## 2.1.0
+- Use `node[languages][ruby]` attributes for ruby/gem paths
+- Don't install ruby in default recipe
+- Add `moombot::ruby` recipe to install ruby if missing
+- Update Ubuntu platforms
+- Remove foodcritic
+
 ## 2.0.1
 - Use absolute path in systemd service
 
